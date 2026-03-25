@@ -39,12 +39,6 @@ const MetodosSection = () => (
               />
             </div>
             <div className="p-6 sm:p-8">
-              <div className="flex items-center gap-2 mb-3">
-                <Award className="w-4 h-4 text-primary" />
-                <span className="text-xs font-medium text-primary/80 uppercase tracking-wider">
-                  {m.badge}
-                </span>
-              </div>
               <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                 {m.title}
               </h3>
