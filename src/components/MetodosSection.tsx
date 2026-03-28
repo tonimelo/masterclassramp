@@ -37,6 +37,8 @@ const MetodosSection = () => (
               <img
                 src={m.img}
                 alt={m.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
               />
             </div>
