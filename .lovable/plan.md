@@ -1,62 +1,32 @@
 
 
-## Análise de Performance da Landing Page
+## Integrar Widget de Checkout Eduzz no CTA
 
-### Resultados Medidos
+### Como funciona
 
-| Métrica | Valor Atual | Meta Ideal |
-|---------|-------------|------------|
-| First Paint | 4.3s | < 1s |
-| First Contentful Paint | 4.5s | < 1.8s |
-| DOM Content Loaded | 4.3s | < 2s |
-| Full Page Load | 5.8s | < 3s |
-| Transfer Size Total | ~2MB | < 800KB |
+O widget da Eduzz (Blinket) será carregado dentro de um **modal/dialog** que abre ao clicar no botão CTA. Assim o usuário não sai da página — o checkout aparece como popup.
 
-### Problemas Identificados
+### Plano
 
-1. **Imagens pesadas sem otimização** — 4 imagens somam ~1MB (hero-bg 379KB, event-1 323KB, event-2 298KB, rebeca 264KB). Nenhuma usa lazy loading ou formato moderno.
+**1. Criar componente `EduzzCheckoutModal.tsx`**
+- Um dialog (usando shadcn Dialog) com o container `<div id="blk_v3">`
+- Ao abrir o modal, carrega dinamicamente o script do Blinket via `document.createElement('script')`
+- Inicializa `blinket.start()` com o ID do evento após o script carregar
+- Ao fechar, limpa o widget
 
-2. **Google Fonts bloqueante** — `@import url(...)` no CSS bloqueia a renderização até a fonte carregar. Isso sozinho atrasa o First Paint em ~1-2s.
+**2. Atualizar `CtaButton.tsx`**
+- Trocar o `<a>` por um `<button>` que abre o modal
+- Importar e renderizar o `EduzzCheckoutModal`
 
-3. **Lucide-react inteiro importado** — 158KB de ícones sendo carregados, quando apenas ~8 ícones são usados.
+### Detalhes técnicos
 
-4. **Imagens above-the-fold e below-the-fold tratadas igual** — Imagens de Prova Social e Mentores carregam junto com o Hero, competindo por banda.
+O script da Eduzz usa `document.write`, que não funciona após o carregamento da página. A solução é:
+1. Carregar o script principal (`blinket-widget.js`) via `createElement('script')` com src direto do CDN
+2. Após o `onload` do script, chamar `blinket.start({ selector, id, template })`
 
-5. **Seções abaixo da dobra renderizam imediatamente** — Sem lazy loading de componentes.
+Isso evita o `eval(atob(...))` e o `document.write`, mantendo a funcionalidade.
 
-### Plano de Melhorias
-
-**1. Otimizar carregamento de fonte (index.css + index.html)**
-- Remover `@import url(...)` do CSS
-- Adicionar `<link rel="preconnect">` e `<link rel="preload">` no `index.html` com `font-display: swap`
-- Carregar apenas weights usados (400, 500, 600, 700, 800, 900)
-
-**2. Lazy loading de imagens (MetodosSection, ProvaSocialSection)**
-- Adicionar `loading="lazy"` e `decoding="async"` nas imagens dos mentores e prova social
-- Adicionar `fetchpriority="high"` apenas na imagem do Hero
-
-**3. Otimizar importações do Lucide**
-- Trocar `import { Icon } from "lucide-react"` por `import Icon from "lucide-react/dist/esm/icons/icon-name"` em todos os componentes — isso elimina o bundle de 158KB
-
-**4. Preload da imagem Hero (index.html)**
-- Adicionar `<link rel="preload" as="image" href="/images/hero-bg.jpg">` para iniciar o download antes do CSS
-
-**5. Comprimir imagens**
-- Converter as imagens de assets (rebeca, lucas, event-1, event-2) para WebP com fallback, reduzindo ~60-70% do tamanho
-
-### Arquivos a editar
-- `index.html` — preconnect fonts, preload hero image
-- `src/index.css` — remover @import de fonte
-- `src/components/HeroSection.tsx` — fetchpriority na bg image
-- `src/components/MetodosSection.tsx` — lazy loading imagens
-- `src/components/ProvaSocialSection.tsx` — lazy loading imagens
-- `src/components/ProvocacaoSection.tsx` — otimizar imports lucide
-- `src/components/PontoCegoSection.tsx` — otimizar imports lucide
-- `src/components/DominarSection.tsx` — otimizar imports lucide
-- `src/components/FechamentoSection.tsx` — otimizar imports lucide
-
-### Resultado esperado
-- FCP de 4.5s → ~1.5-2s
-- Full load de 5.8s → ~2.5-3s
-- Transfer size reduzido em ~50%
+### Arquivos
+- **Criar**: `src/components/EduzzCheckoutModal.tsx`
+- **Editar**: `src/components/CtaButton.tsx`
 
