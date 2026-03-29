@@ -16,12 +16,16 @@ const problems = [
 ];
 
 const ProblemaSection = () => (
-  <section className="py-16 sm:py-24 px-6">
-    <div className="container max-w-3xl">
-      <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-4">
-        Por que sua empresa parou de crescer?
+  <section className="relative py-20 sm:py-28 px-6 overflow-hidden">
+    {/* Subtle radial glow */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-3xl pointer-events-none" />
+
+    <div className="relative container max-w-3xl">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-foreground text-center mb-4 uppercase tracking-tight">
+        Por que sua empresa{" "}
+        <span className="text-primary">parou de crescer?</span>
       </h2>
-      <p className="text-muted-foreground text-center text-sm sm:text-base max-w-2xl mx-auto mb-12 leading-relaxed">
+      <p className="text-muted-foreground text-center text-sm sm:text-base max-w-2xl mx-auto mb-14 leading-relaxed">
         Para cada 10% de crescimento no faturamento, a complexidade operacional
         cresce 50%. Sem a estrutura certa, o crescimento vira caos — e o lucro
         desaparece.
@@ -30,10 +34,12 @@ const ProblemaSection = () => (
         {problems.map((p) => (
           <div
             key={p.text}
-            className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-all"
+            className="flex items-start gap-4 p-5 sm:p-6 rounded-xl border border-border/60 bg-card/50 backdrop-blur-sm hover:border-primary/40 hover:shadow-[0_0_20px_hsl(var(--primary)/0.06)] transition-all duration-300"
           >
-            <p.icon className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-            <p className="text-foreground text-sm sm:text-base leading-relaxed">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <p.icon className="w-5 h-5 text-primary" />
+            </div>
+            <p className="text-foreground text-sm sm:text-base leading-relaxed pt-1.5">
               {p.text}
             </p>
           </div>
