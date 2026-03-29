@@ -123,16 +123,21 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
   };
 
   const inputClass =
-    "w-full rounded-lg border border-border bg-secondary/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all";
+    "w-full rounded-xl border border-border/60 bg-background/60 backdrop-blur-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all";
   const errorClass = "text-xs text-red-400 mt-1";
   const labelClass = "text-sm font-semibold text-foreground mb-2 block";
-  const radioClass =
-    "flex items-center gap-3 px-4 py-2.5 rounded-lg border cursor-pointer transition-all text-sm";
+  const chipClass = (active: boolean) =>
+    `flex items-center gap-3 px-4 py-2.5 rounded-xl border cursor-pointer transition-all duration-200 text-sm ${
+      active
+        ? "border-primary/60 bg-primary/10 text-foreground shadow-[0_0_12px_hsl(var(--primary)/0.1)]"
+        : "border-border/40 text-muted-foreground hover:border-border hover:bg-card/50"
+    }`;
 
+  // ── Not Qualified ──
   if (result === "not_qualified") {
     return (
       <Dialog open={open} onOpenChange={handleClose}>
-        <DialogContent className="max-w-md w-[92vw] border-border bg-card p-8">
+        <DialogContent className="max-w-md w-[92vw] rounded-2xl border-border/40 bg-card/95 backdrop-blur-xl p-8 shadow-[0_0_60px_hsl(var(--background)/0.8)]">
           <DialogTitle className="sr-only">Resultado</DialogTitle>
           <div className="text-center space-y-5">
             <div className="text-4xl">🤝</div>
@@ -140,22 +145,21 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
               Obrigado pelo interesse!
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Analisamos seu perfil e entendemos que, neste momento, o foco da
-              masterclass pode não ser o mais indicado para o estágio atual do
+              Analisamos seu perfil e entendemos que, neste momento, a
+              masterclass pode não ser a mais indicada para o estágio atual do
               seu negócio. E tudo bem — isso só indica que ainda não é a hora
               certa.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Nossa recomendação é seguir fortalecendo a base do negócio,
-              especialmente vendas, consistência e operação. Para continuar
-              evoluindo, acompanhe os conteúdos:
+              Siga fortalecendo a base do negócio. Para continuar evoluindo,
+              acompanhe os conteúdos:
             </p>
             <div className="flex flex-col gap-3 pt-2">
               <a
                 href="https://www.instagram.com/lucasnigro.financas/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border bg-secondary/50 text-sm text-foreground hover:border-primary/50 transition-all"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border/40 bg-background/50 text-sm text-foreground hover:border-primary/40 transition-all"
               >
                 📊 Lucas Nigro — @lucasnigro.financas
               </a>
@@ -163,7 +167,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
                 href="https://www.instagram.com/rebecarmaia/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border bg-secondary/50 text-sm text-foreground hover:border-primary/50 transition-all"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border/40 bg-background/50 text-sm text-foreground hover:border-primary/40 transition-all"
               >
                 ⚙️ Rebeca Maia — @rebecarmaia
               </a>
@@ -180,31 +184,53 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
     );
   }
 
+  // ── Qualified (inspired by reference 2) ──
   if (result === "qualified") {
     return (
       <Dialog open={open} onOpenChange={handleClose}>
-        <DialogContent className="max-w-md w-[92vw] border-border bg-card p-8">
+        <DialogContent className="max-w-md w-[92vw] rounded-2xl border-border/30 bg-card/95 backdrop-blur-xl p-0 shadow-[0_0_80px_hsl(var(--primary)/0.08)] overflow-hidden">
           <DialogTitle className="sr-only">Convite Aprovado</DialogTitle>
-          <div className="text-center space-y-5">
-            <div className="text-4xl">🎉</div>
-            <h3 className="text-xl font-bold text-foreground">
-              Parabéns! Seu perfil foi aprovado.
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+
+          {/* Subtle top glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative text-center px-8 py-10 space-y-6">
+            {/* Check icon like reference */}
+            <div className="mx-auto w-20 h-20 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center">
+              <svg className="w-10 h-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-black text-foreground mb-1">
+                Parabéns!
+              </h3>
+              <p className="text-lg font-bold text-foreground">
+                Seu perfil foi aprovado.
+              </p>
+            </div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
               Você tem o perfil ideal para essa masterclass. Entre no grupo
-              exclusivo do WhatsApp para receber todas as informações:
+              exclusivo do WhatsApp para receber todas as informações.
             </p>
+
+            {/* Divider */}
+            <div className="w-12 h-0.5 bg-border/50 mx-auto rounded-full" />
+
             <a
               href="#LINK_WHATSAPP"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold text-sm transition-all"
+              className="inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-sm transition-all hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)] active:scale-[0.98]"
             >
               Entrar no Grupo do WhatsApp
             </a>
+
             <button
               onClick={handleClose}
-              className="mt-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Fechar
             </button>
@@ -214,10 +240,11 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
     );
   }
 
+  // ── Form ──
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg w-[95vw] max-h-[90vh] overflow-y-auto border-border bg-card p-6 sm:p-8">
-        <DialogTitle className="text-xl font-bold text-foreground text-center mb-1">
+      <DialogContent className="max-w-lg w-[95vw] max-h-[90vh] overflow-y-auto rounded-2xl border-border/30 bg-card/95 backdrop-blur-xl p-6 sm:p-8 shadow-[0_0_80px_hsl(var(--background)/0.9)]">
+        <DialogTitle className="text-xl font-black text-foreground text-center mb-1 uppercase tracking-tight">
           Solicitar Convite
         </DialogTitle>
         <p className="text-sm text-muted-foreground text-center mb-6">
@@ -284,14 +311,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
             <label className={labelClass}>Ramo de atuação *</label>
             <div className="grid grid-cols-2 gap-2">
               {[...RAMO_OPTIONS, "Outro"].map((r) => (
-                <label
-                  key={r}
-                  className={`${radioClass} ${
-                    form.ramo === r
-                      ? "border-primary bg-primary/10 text-foreground"
-                      : "border-border text-muted-foreground hover:border-muted-foreground/50"
-                  }`}
-                >
+                <label key={r} className={chipClass(form.ramo === r)}>
                   <input
                     type="radio"
                     name="ramo"
@@ -321,14 +341,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
             <label className={labelClass}>Quantos colaboradores? *</label>
             <div className="grid grid-cols-2 gap-2">
               {COLABORADORES_OPTIONS.map((c) => (
-                <label
-                  key={c}
-                  className={`${radioClass} ${
-                    form.colaboradores === c
-                      ? "border-primary bg-primary/10 text-foreground"
-                      : "border-border text-muted-foreground hover:border-muted-foreground/50"
-                  }`}
-                >
+                <label key={c} className={chipClass(form.colaboradores === c)}>
                   <input
                     type="radio"
                     name="colaboradores"
@@ -349,14 +362,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
             <label className={labelClass}>Faturamento mensal *</label>
             <div className="grid grid-cols-1 gap-2">
               {FATURAMENTO_OPTIONS.map((f) => (
-                <label
-                  key={f}
-                  className={`${radioClass} ${
-                    form.faturamento === f
-                      ? "border-primary bg-primary/10 text-foreground"
-                      : "border-border text-muted-foreground hover:border-muted-foreground/50"
-                  }`}
-                >
+                <label key={f} className={chipClass(form.faturamento === f)}>
                   <input
                     type="radio"
                     name="faturamento"
@@ -377,14 +383,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
             <label className={labelClass}>Quais seus maiores desafios?</label>
             <div className="grid grid-cols-1 gap-2">
               {DESAFIOS_OPTIONS.map((d) => (
-                <label
-                  key={d}
-                  className={`${radioClass} ${
-                    form.desafios.includes(d)
-                      ? "border-primary bg-primary/10 text-foreground"
-                      : "border-border text-muted-foreground hover:border-muted-foreground/50"
-                  }`}
-                >
+                <label key={d} className={chipClass(form.desafios.includes(d))}>
                   <input
                     type="checkbox"
                     checked={form.desafios.includes(d)}
@@ -400,7 +399,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
           {/* Submit */}
           <button
             onClick={handleSubmit}
-            className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-bold text-sm uppercase tracking-wide hover:opacity-90 transition-all active:scale-[0.98]"
+            className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold text-sm uppercase tracking-wide hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)] transition-all active:scale-[0.98]"
           >
             Enviar Solicitação
           </button>
