@@ -272,6 +272,10 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
               href="https://chat.whatsapp.com/KnqQEFMNzdtIFjuKMQdzmM?mode=gi_t"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                (window as any).dataLayer = (window as any).dataLayer || [];
+                (window as any).dataLayer.push({ event: 'whatsapp_group_click' });
+              }}
               className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-sm uppercase tracking-wide transition-all hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)] active:scale-[0.98]"
             >
               Acessar Grupo VIP no WhatsApp
