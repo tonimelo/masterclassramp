@@ -1,23 +1,28 @@
 
 
-## Corrigir rotas SPA no Netlify
+## Eventos GTM + Ajuste de copy na tela de aprovação
 
-O problema é que o Netlify não sabe redirecionar rotas como `/admin` e `/admin/login` para o `index.html` — ele tenta encontrar um arquivo real e retorna 404.
+### 1. Eventos dataLayer (GTM)
 
-### Solução
+Adicionar dois `window.dataLayer.push` no `QualificationFormModal.tsx`:
 
-Criar o arquivo `public/_redirects` com a regra de fallback padrão para SPAs:
+- **Evento 1 — Envio do formulário**: no `handleSubmit`, após salvar no banco, disparar `{ event: 'form_submitted', qualified: true/false }`
+- **Evento 2 — Clique no link do WhatsApp**: no `<a>` do CTA do grupo VIP, disparar `{ event: 'whatsapp_group_click' }` via `onClick`
 
-```
-/*    /index.html   200
-```
+### 2. Ajuste de copy na tela "qualified"
 
-Isso faz com que qualquer rota (incluindo `/admin`, `/admin/login`, etc.) seja servida pelo `index.html`, permitindo que o React Router cuide do roteamento normalmente.
+Substituir o conteúdo textual atual da tela de aprovação (linhas 253-283) pelo texto solicitado:
+
+> **APLICAÇÃO APROVADA**
+>
+> Seja bem-vindo à Mesa de Estratégia.
+>
+> Para garantir que você receba todos os avisos prévios, o link da transmissão e as ferramentas de análise que utilizaremos ao vivo, você precisa entrar agora no nosso Grupo VIP de Acesso. Ele é restrito e apenas Admins enviam mensagens.
+
+Remover os blocos "O que acontece lá dentro" e "O grupo é silencioso..." que foram substituídos pela nova copy.
 
 ### Arquivo alterado
-| Arquivo | Ação |
+| Arquivo | Alteração |
 |---|---|
-| `public/_redirects` | Criar com regra de fallback SPA |
-
-Após a alteração, basta fazer o novo deploy no Netlify.
+| `src/components/QualificationFormModal.tsx` | Adicionar 2 eventos dataLayer + atualizar copy da tela qualified |
 
