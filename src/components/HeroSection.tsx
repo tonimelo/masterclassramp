@@ -31,13 +31,6 @@ const HeroSection = () => (
           com previsibilidade e lucro real.
         </p>
 
-        {/* Prova social */}
-        <p className="text-xs text-muted-foreground/60 mb-10 tracking-wide">
-          Métodos aplicados em{" "}
-          <span className="text-foreground font-medium">Toyota</span>,{" "}
-          <span className="text-foreground font-medium">O Boticário</span> e{" "}
-          <span className="text-foreground font-medium">Amcham</span>
-        </p>
 
         {/* Mentor image */}
         <div className="w-48 sm:w-56 md:w-64 lg:w-72 mb-10">
