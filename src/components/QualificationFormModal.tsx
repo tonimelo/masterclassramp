@@ -160,6 +160,10 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
       console.error("Error saving lead:", err);
     }
 
+    // GTM event
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: 'form_submitted', qualified });
+
     setResult(qualified ? "qualified" : "not_qualified");
   };
 
