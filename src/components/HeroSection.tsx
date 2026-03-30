@@ -1,4 +1,5 @@
 import mentorsImg from "@/assets/beca_e_lucas.png";
+import bgImg from "@/assets/background.png";
 import CtaButton from "./CtaButton";
 
 const HeroSection = () => (
@@ -6,7 +7,7 @@ const HeroSection = () => (
     {/* Network background */}
     <div
       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/network-bg.jpg')" }}
+      style={{ backgroundImage: `url(${bgImg})` }}
     />
     <div className="absolute inset-0 bg-background/80" />
     <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
