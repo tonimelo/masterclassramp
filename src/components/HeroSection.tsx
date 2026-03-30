@@ -1,4 +1,5 @@
 import mentorsImg from "@/assets/beca_e_lucas.png";
+import bgImg from "@/assets/background.png";
 import CtaButton from "./CtaButton";
 
 const HeroSection = () => (
