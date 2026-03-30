@@ -1,4 +1,5 @@
 import { TrendingUp, AlertTriangle, Lock } from "lucide-react";
+import CtaButton from "./CtaButton";
 
 const problems = [
   {
@@ -44,6 +45,9 @@ const ProblemaSection = () => (
             </p>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center mt-12">
+        <CtaButton />
       </div>
     </div>
   </section>

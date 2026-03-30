@@ -1,5 +1,6 @@
 import rebecaImg from "@/assets/rebeca-bio.png";
 import lucasImg from "@/assets/lucas-bio.png";
+import CtaButton from "./CtaButton";
 
 const mentors = [
   {
@@ -44,6 +45,9 @@ const MetodosSection = () => (
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center mt-12">
+        <CtaButton />
       </div>
     </div>
   </section>
