@@ -262,29 +262,9 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
               </h3>
             </div>
 
-            {/* Subheadline */}
-            <p className="text-sm text-muted-foreground leading-relaxed text-center">
-              Analisamos os dados da sua operação e confirmamos que seu momento de negócio está alinhado com a metodologia da Masterclass. Você acaba de garantir seu lugar entre um grupo seleto de empresários focados em escala e alta performance.
-            </p>
-
-            <div className="w-12 h-0.5 bg-border/50 mx-auto rounded-full" />
-
             {/* Corpo */}
             <p className="text-sm text-muted-foreground leading-relaxed text-center">
-              Para garantir que você receba todos os materiais prévios, o link da transmissão e as ferramentas de análise que utilizaremos ao vivo, você precisa entrar agora no nosso <span className="text-foreground font-semibold">Grupo VIP de Acesso</span>.
-            </p>
-
-            {/* O que acontece */}
-            <div className="rounded-xl border border-border/40 bg-background/40 p-4 space-y-2">
-              <p className="text-xs font-bold uppercase tracking-wider text-foreground">O que acontece lá dentro</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Entrega de materiais complementares, avisos importantes e o link exclusivo para a Masterclass.
-              </p>
-            </div>
-
-            {/* Privacidade */}
-            <p className="text-xs text-muted-foreground/70 text-center italic">
-              🔒 O grupo é silencioso e focado exclusivamente na sua preparação para o evento.
+              Para garantir que você receba todos os avisos prévios, o link da transmissão e as ferramentas de análise que utilizaremos ao vivo, você precisa entrar agora no nosso <span className="text-foreground font-semibold">Grupo VIP de Acesso</span>. Ele é restrito e apenas Admins enviam mensagens.
             </p>
 
             {/* CTA */}
