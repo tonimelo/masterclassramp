@@ -143,29 +143,11 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
     const qualified = !disqualified;
 
     try {
-      // Upsert origem no Supabase externo (LeadFlow)
-      await externalSupabase.from("origens").upsert(
-        {
-          nome: "Masterclass RAMP",
-          slug: "masterclass-ramp",
-          url: window.location.href,
-        },
-        { onConflict: "slug" }
-      );
-
-      // Buscar UUID da origem
-      const { data: origemData } = await externalSupabase
-        .from("origens")
-        .select("id")
-        .eq("slug", "masterclass-ramp")
-        .single();
-
       // Insert lead no Supabase externo (LeadFlow)
       const { error } = await externalSupabase.from("leads").insert({
         nome: form.nome,
         email: form.email,
         whatsapp: form.whatsapp,
-        origem: origemData?.id || null,
         origem_slug: "masterclass-ramp",
         status: "novo",
         empresa_id: "9701b451-f783-4474-8ba8-9a85b2a54657",
