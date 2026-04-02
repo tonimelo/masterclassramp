@@ -9,10 +9,16 @@ interface HeroSectionProps {
 
 const HeroSection = ({ onCtaClick }: HeroSectionProps) => (
   <section className="relative flex flex-col overflow-hidden" style={{ contain: "layout style paint" }}>
-    {/* Network background */}
-    <div
-      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${bgImg})`, willChange: "auto" }}
+    {/* Network background — real <img> for LCP/preload */}
+    <img
+      src={bgImg}
+      alt=""
+      aria-hidden="true"
+      className="absolute inset-0 w-full h-full object-cover object-center"
+      fetchPriority="high"
+      decoding="async"
+      width={1200}
+      height={800}
     />
     <div className="absolute inset-0 bg-background/40" />
 
