@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import QualificationFormModal from "@/components/QualificationFormModal";
-import logoFooter from "@/assets/logo-footer.png";
+import logoFooter from "@/assets/logo-footer.webp";
 
 const ProblemaSection = lazy(() => import("@/components/ProblemaSection"));
 const LogosCarouselSection = lazy(() => import("@/components/LogosCarouselSection"));

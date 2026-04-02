@@ -1,5 +1,5 @@
-import mentorsImg from "@/assets/beca_e_lucas.png";
-import bgImg from "@/assets/background.png";
+import mentorsImg from "@/assets/beca_e_lucas.webp";
+import bgImg from "@/assets/background.webp";
 import { CalendarDays, Clock, Monitor } from "lucide-react";
 import CtaButton from "./CtaButton";
 
