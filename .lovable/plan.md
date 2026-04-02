@@ -1,57 +1,63 @@
 
 
-## Diagnóstico: Por que os leads não chegam ao LeadFlow
+## Conferência: Por que os leads não estão sendo gravados no LeadFlow
 
-### Causa raiz
+### Diagnóstico
 
-Esta LP e o LeadFlow usam **bancos Supabase diferentes**:
+Comparei o código desta LP com o banco de dados do projeto [LeadFlow](/projects/0374047c-1333-468e-8cf0-e888a117779d) e identifiquei **2 problemas que impedem a gravação**:
 
-| Projeto | Supabase ref | URL |
+#### Problema 1: RLS bloqueia INSERT anônimo (causa principal)
+
+A tabela `leads` no LeadFlow só tem política RLS para `authenticated`. A LP usa a **anon key** (sem login), então todo INSERT é **silenciosamente rejeitado** pelo banco.
+
+Políticas atuais:
+- `"Authenticated full access"` → só para `authenticated`
+- **Nenhuma política para `anon`**
+
+#### Problema 2: Campos enviados vs. schema do banco
+
+| Campo enviado pela LP | Existe no LeadFlow? | Observação |
 |---|---|---|
-| **Esta LP** (masterclass) | `kiokycpopjocvvlpfspr` | `https://kiokycpopjocvvlpfspr.supabase.co` |
-| **LeadFlow** | `pqkqftqvrbjbdftilwip` | `https://pqkqftqvrbjbdftilwip.supabase.co` |
+| `nome` | Sim (NOT NULL) | OK |
+| `email` | Sim (nullable) | OK |
+| `whatsapp` | Sim (NOT NULL) | OK |
+| `origem_slug` | Sim | OK |
+| `status: 'novo'` | Sim | OK (passa no trigger de validação) |
+| `empresa_id` | Sim (nullable, FK para empresas) | Precisa confirmar que o UUID existe na tabela `empresas` |
 
-Os leads estão sendo gravados no banco `kiokycpopjocvvlpfspr`, mas o LeadFlow lê do banco `pqkqftqvrbjbdftilwip`. Por isso os leads nunca aparecem lá.
-
-### Schema compatível
-
-A tabela `leads` no LeadFlow tem os campos: `nome`, `email`, `whatsapp`, `empresa_id`, `origem_slug`, `origem` (uuid FK para origens), `status`, `tags`, `notas`, `deleted_at`. Todos nullable. O INSERT atual da LP (nome, email, whatsapp, origem_slug, status, empresa_id) é compatível.
+Os campos estão compatíveis, mas se o `empresa_id` (`9701b451-...`) não existir na tabela `empresas` do LeadFlow, a FK impedirá o INSERT.
 
 ### Plano de correção
 
-**1. Atualizar `src/integrations/supabase/externalClient.ts`**
-
-Trocar as credenciais para apontar ao Supabase do LeadFlow:
-
-```text
-URL:  https://pqkqftqvrbjbdftilwip.supabase.co
-KEY:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxa3FmdHF2cmJqYmRmdGlsd2lwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwNzIwMjUsImV4cCI6MjA5MDY0ODAyNX0.1oB7gAmF-_Tn3B1Svh320d6SLN-l-hGdOnXOYUb5ehs
-```
-
-**2. Verificar RLS no banco do LeadFlow**
-
-O banco do LeadFlow precisa ter uma política RLS que permita INSERT anônimo na tabela `leads`:
+**1. Adicionar política RLS para anon no LeadFlow** (precisa ser feito no projeto LeadFlow)
 
 ```sql
-CREATE POLICY "Allow anon insert leads"
-ON public.leads FOR INSERT TO anon
+CREATE POLICY "Anon can insert leads"
+ON public.leads
+FOR INSERT
+TO anon
 WITH CHECK (true);
 ```
 
-Isso precisa ser configurado **no projeto LeadFlow**, não aqui.
+**2. Verificar se empresa_id existe**
 
-**3. Verificar `empresa_id`**
+Preciso que você confirme: no LeadFlow, a empresa com UUID `9701b451-f783-4474-8ba8-9a85b2a54657` foi cadastrada na tabela `empresas`? Se não foi, temos duas opções:
+- Cadastrar a empresa no LeadFlow
+- Remover o campo `empresa_id` do INSERT da LP (já que é nullable)
 
-Confirmar que o UUID `9701b451-f783-4474-8ba8-9a85b2a54657` existe na tabela `empresas` do LeadFlow (há uma FK `leads_empresa_id_fkey`). Se não existir, o INSERT falhará.
+**3. (Opcional) Adicionar mais dados ao INSERT**
 
-### Arquivos alterados
+A LP coleta `sobrenome`, `ramo`, `colaboradores`, `faturamento` e `desafios`, mas só envia `nome`, `email` e `whatsapp`. Se quiser esses dados no LeadFlow, será preciso adicionar as colunas lá e atualizar o INSERT aqui.
 
-| Arquivo | Ação |
+### Resumo de ações
+
+| Onde | Ação |
 |---|---|
-| `src/integrations/supabase/externalClient.ts` | Trocar URL e Anon Key para o Supabase do LeadFlow |
+| **Projeto LeadFlow** | Criar migração com política RLS anon INSERT na tabela `leads` |
+| **Projeto LeadFlow** | Verificar/criar registro na tabela `empresas` |
+| **Esta LP** | Nenhuma alteração de código necessária (dados já estão corretos) |
 
-### Riscos
+### Arquivos que serão alterados
 
-- Se a tabela `leads` do LeadFlow não tiver política RLS para INSERT anônimo, o formulário falhará silenciosamente (o erro é capturado no catch).
-- Se o `empresa_id` não existir na tabela `empresas` do LeadFlow, a FK impedirá o INSERT.
+Nenhum arquivo nesta LP precisa ser alterado. A correção é **100% no banco do LeadFlow**.
 
