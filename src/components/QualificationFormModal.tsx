@@ -150,7 +150,6 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
         whatsapp: form.whatsapp,
         origem_slug: "masterclass-ramp",
         status: "novo",
-        empresa_id: "9701b451-f783-4474-8ba8-9a85b2a54657",
       });
 
       if (error) throw error;
