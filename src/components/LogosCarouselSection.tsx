@@ -1,13 +1,13 @@
-import amcham from "@/assets/logos/amcham.png";
-import toyota from "@/assets/logos/toyota.png";
-import greenjoy from "@/assets/logos/greenjoy.png";
-import unesco from "@/assets/logos/unesco.png";
-import espacolaser from "@/assets/logos/espacolaser.png";
-import oboticario from "@/assets/logos/oboticario.png";
-import cardinigro from "@/assets/logos/cardinigro.png";
-import caracol from "@/assets/logos/caracol.png";
-import subway from "@/assets/logos/subway.png";
-import saocamilo from "@/assets/logos/saocamilo.png";
+import amcham from "@/assets/logos/amcham.webp";
+import toyota from "@/assets/logos/toyota.webp";
+import greenjoy from "@/assets/logos/greenjoy.webp";
+import unesco from "@/assets/logos/unesco.webp";
+import espacolaser from "@/assets/logos/espacolaser.webp";
+import oboticario from "@/assets/logos/oboticario.webp";
+import cardinigro from "@/assets/logos/cardinigro.webp";
+import caracol from "@/assets/logos/caracol.webp";
+import subway from "@/assets/logos/subway.webp";
+import saocamilo from "@/assets/logos/saocamilo.webp";
 
 const logos = [
   { src: amcham, alt: "Amcham" },

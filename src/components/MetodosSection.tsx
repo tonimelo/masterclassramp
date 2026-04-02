@@ -1,5 +1,5 @@
-import rebecaImg from "@/assets/rebeca-bio.png";
-import lucasImg from "@/assets/lucas-bio.png";
+import rebecaImg from "@/assets/rebeca-bio.webp";
+import lucasImg from "@/assets/lucas-bio.webp";
 import CtaButton from "./CtaButton";
 
 const mentors = [
