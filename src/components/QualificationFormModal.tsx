@@ -143,6 +143,7 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
     const qualified = !disqualified;
 
     try {
+      // Salva no banco local
       const { error } = await supabase.from("leads").insert({
         nome: form.nome,
         sobrenome: form.sobrenome,
@@ -159,6 +160,19 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
       });
 
       if (error) throw error;
+
+      // Envia para o LeadFlow
+      fetch("https://ehemndboynwrksqltckl.supabase.co/functions/v1/receive-lead?origem=masterclass-ramp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: `${form.nome} ${form.sobrenome}`,
+          email: form.email,
+          whatsapp: form.whatsapp,
+          tags: form.desafios,
+          notas: `Ramo: ${form.ramo || form.ramoOutro} | Colaboradores: ${form.colaboradores} | Faturamento: ${form.faturamento}`,
+        }),
+      }).catch(console.error);
     } catch (err) {
       console.error("Erro ao salvar lead:", err);
     }
