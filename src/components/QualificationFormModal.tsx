@@ -143,13 +143,19 @@ const QualificationFormModal = ({ open, onOpenChange }: QualificationFormModalPr
     const qualified = !disqualified;
 
     try {
-      // Insert lead no Supabase externo (LeadFlow)
-      const { error } = await externalSupabase.from("leads").insert({
+      const { error } = await supabase.from("leads").insert({
         nome: form.nome,
+        sobrenome: form.sobrenome,
         email: form.email,
         whatsapp: form.whatsapp,
+        ramo: form.ramo || null,
+        ramo_outro: form.ramoOutro || null,
+        colaboradores: form.colaboradores || null,
+        faturamento: form.faturamento || null,
+        desafios: form.desafios.length > 0 ? form.desafios : null,
         origem_slug: "masterclass-ramp",
         status: "novo",
+        qualified,
       });
 
       if (error) throw error;
