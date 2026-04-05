@@ -7,11 +7,7 @@ const perks = [
   { icon: Zap, text: "Prioridade no plano de destrave" },
 ];
 
-interface FechamentoSectionProps {
-  onCtaClick?: () => void;
-}
-
-const FechamentoSection = ({ onCtaClick }: FechamentoSectionProps) => (
+const FechamentoSection = () => (
   <section className="py-20 sm:py-28 px-6">
     <div className="container max-w-3xl text-center">
       <div className="relative border border-primary/30 rounded-2xl p-8 sm:p-14 border-glow bg-card/40 overflow-hidden">
