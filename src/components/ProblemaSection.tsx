@@ -16,11 +16,7 @@ const problems = [
   },
 ];
 
-interface ProblemaSectionProps {
-  onCtaClick?: () => void;
-}
-
-const ProblemaSection = ({ onCtaClick }: ProblemaSectionProps) => (
+const ProblemaSection = () => (
   <section className="relative py-20 sm:py-28 px-6 overflow-hidden" style={{ contain: "layout style paint" }}>
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-3xl pointer-events-none" />
 
