@@ -60,6 +60,7 @@ const LogosCarouselSection = () => {
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default LogosCarouselSection;
