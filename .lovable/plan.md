@@ -1,31 +1,17 @@
 
-## Plano: Substituir formulário modal pelo Typebot
 
-### O que muda
+## Plano: Forçar sync com GitHub
 
-Todos os botões CTA da página deixam de abrir o modal de qualificação e passam a redirecionar para o formulário externo do Typebot.
+Adicionar um comentário com timestamp no final de `src/App.tsx` para gerar um novo commit e forçar a sincronização.
 
-### Alterações
+### Alteração
 
-**1. `src/components/CtaButton.tsx`**
-- Transformar o botão em um link (`<a>`) apontando para `https://bbot.rumoamaximapotencia.com.br/masterclass`
-- Abrir em nova aba (`target="_blank"`)
-- Remover prop `onClick`
+**Arquivo:** `src/App.tsx`
 
-**2. `src/components/HeroSection.tsx`**
-- Remover prop `onCtaClick` e deixar de passá-la ao `CtaButton`
+Adicionar ao final do arquivo:
+```typescript
+// sync: 2026-04-05
+```
 
-**3. `src/components/ProblemaSection.tsx`, `MetodosSection.tsx`, `ParaVoceSection.tsx`**
-- Remover prop `onCtaClick` e deixar de passá-la ao `CtaButton`
+Isso não afeta o funcionamento do site — apenas cria uma mudança mínima para disparar o push automático ao GitHub.
 
-**4. `src/pages/Index.tsx`**
-- Remover estado `modalOpen`, função `openModal` e o componente `QualificationFormModal`
-- Remover as props `onCtaClick` de todas as seções
-- Remover import do `QualificationFormModal`
-
-### Arquivos que podem ser removidos depois
-- `src/components/QualificationFormModal.tsx` (não será mais usado)
-- `src/components/EduzzCheckoutModal.tsx` (se também não for usado em outro lugar)
-
-### Resultado
-Todos os CTAs levam direto ao Typebot, sem modal intermediário.
