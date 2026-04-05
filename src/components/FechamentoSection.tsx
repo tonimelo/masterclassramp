@@ -45,7 +45,7 @@ const FechamentoSection = () => (
             ))}
           </div>
 
-          <CtaButton onClick={onCtaClick} />
+          <CtaButton />
         </div>
       </div>
     </div>
