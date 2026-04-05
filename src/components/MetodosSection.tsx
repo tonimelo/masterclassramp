@@ -50,7 +50,7 @@ const MetodosSection = () => (
         ))}
       </div>
       <div className="flex justify-center mt-12">
-        <CtaButton onClick={onCtaClick} />
+        <CtaButton />
       </div>
     </div>
   </section>

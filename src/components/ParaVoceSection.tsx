@@ -68,7 +68,7 @@ const ParaVoceSection = () => (
         <p className="text-muted-foreground text-sm sm:text-base mb-6">
           Se você se identificou com o lado esquerdo, esta masterclass foi feita para você.
         </p>
-        <CtaButton onClick={onCtaClick} />
+        <CtaButton />
       </div>
     </div>
   </section>
