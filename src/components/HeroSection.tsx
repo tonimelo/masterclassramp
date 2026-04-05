@@ -37,8 +37,7 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => (
         </h1>
 
         <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-          Como Estruturar Gestão e Finanças para Escalar sua empresa
-          com previsibilidade e lucro real.
+          Para empresários que faturam bem e ainda não conseguem sair da operação.
         </p>
       </div>
 
