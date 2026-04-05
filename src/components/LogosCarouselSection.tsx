@@ -22,7 +22,8 @@ const logos = [
   { src: saocamilo, alt: "São Camilo" },
 ];
 
-const LogosCarouselSection = () => (
+const LogosCarouselSection = () => {
+  return (
   <section className="py-16 sm:py-20 overflow-hidden">
     <div className="container max-w-4xl px-6 mb-12 text-center">
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-foreground uppercase tracking-tight">
@@ -59,6 +60,7 @@ const LogosCarouselSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default LogosCarouselSection;
