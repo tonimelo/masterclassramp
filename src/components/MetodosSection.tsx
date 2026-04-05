@@ -15,11 +15,7 @@ const mentors = [
   },
 ];
 
-interface MetodosSectionProps {
-  onCtaClick?: () => void;
-}
-
-const MetodosSection = ({ onCtaClick }: MetodosSectionProps) => (
+const MetodosSection = () => (
   <section className="py-16 sm:py-24 px-6" style={{ contain: "layout style paint" }}>
     <div className="container max-w-5xl">
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-foreground mb-12 text-center uppercase tracking-tight">
