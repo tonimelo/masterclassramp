@@ -3,11 +3,7 @@ import bgImg from "@/assets/background.webp";
 import { CalendarDays, Clock, Monitor } from "lucide-react";
 import CtaButton from "./CtaButton";
 
-interface HeroSectionProps {
-  onCtaClick?: () => void;
-}
-
-const HeroSection = ({ onCtaClick }: HeroSectionProps) => (
+const HeroSection = () => (
   <section className="relative flex flex-col overflow-hidden" style={{ contain: "layout style paint" }}>
     {/* Network background — real <img> for LCP/preload */}
     <img
