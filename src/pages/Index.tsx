@@ -1,7 +1,6 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
-import QualificationFormModal from "@/components/QualificationFormModal";
 import logoFooter from "@/assets/logo-footer.webp";
 
 const ProblemaSection = lazy(() => import("@/components/ProblemaSection"));
@@ -11,18 +10,15 @@ const MetodosSection = lazy(() => import("@/components/MetodosSection"));
 const ParaVoceSection = lazy(() => import("@/components/ParaVoceSection"));
 
 const Index = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
-
   return (
     <main className="bg-background min-h-screen">
-      <HeroSection onCtaClick={openModal} />
+      <HeroSection />
       <Suspense fallback={null}>
-        <ProblemaSection onCtaClick={openModal} />
+        <ProblemaSection />
         <LogosCarouselSection />
         <SolucaoSection />
-        <MetodosSection onCtaClick={openModal} />
-        <ParaVoceSection onCtaClick={openModal} />
+        <MetodosSection />
+        <ParaVoceSection />
       </Suspense>
 
       <footer className="py-10 px-6 border-t border-border/30 flex flex-col items-center gap-6">
@@ -36,8 +32,6 @@ const Index = () => {
           © {new Date().getFullYear()} Masterclass. Todos os direitos reservados.
         </p>
       </footer>
-
-      <QualificationFormModal open={modalOpen} onOpenChange={setModalOpen} />
     </main>
   );
 };

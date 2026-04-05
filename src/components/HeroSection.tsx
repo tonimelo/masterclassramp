@@ -3,11 +3,7 @@ import bgImg from "@/assets/background.webp";
 import { CalendarDays, Clock, Monitor } from "lucide-react";
 import CtaButton from "./CtaButton";
 
-interface HeroSectionProps {
-  onCtaClick?: () => void;
-}
-
-const HeroSection = ({ onCtaClick }: HeroSectionProps) => (
+const HeroSection = () => (
   <section className="relative flex flex-col overflow-hidden" style={{ contain: "layout style paint" }}>
     {/* Network background — real <img> for LCP/preload */}
     <img
@@ -49,7 +45,7 @@ const HeroSection = ({ onCtaClick }: HeroSectionProps) => (
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6">
             {/* Left: CTA + Date */}
             <div className="flex flex-col items-center sm:items-start gap-4 pb-4 sm:pb-12 lg:pb-16 z-10 w-full sm:w-auto">
-              <CtaButton onClick={onCtaClick} />
+              <CtaButton />
               <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 text-foreground font-semibold text-sm sm:text-base tracking-wide w-full">
                 <span className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg border border-primary/20 bg-primary/5 backdrop-blur-sm">
                   <CalendarDays className="w-4 h-4 text-primary" /> 09/04

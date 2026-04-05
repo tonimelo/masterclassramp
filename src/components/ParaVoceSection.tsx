@@ -19,11 +19,7 @@ const naoParaVoce = [
   "Você não tem interesse em profissionalizar a gestão e quer crescer a qualquer custo",
 ];
 
-interface ParaVoceSectionProps {
-  onCtaClick?: () => void;
-}
-
-const ParaVoceSection = ({ onCtaClick }: ParaVoceSectionProps) => (
+const ParaVoceSection = () => (
   <section className="relative py-20 sm:py-28 px-6 overflow-hidden" style={{ contain: "layout style paint" }}>
     <div className="absolute inset-0 bg-card/30" />
 
@@ -72,7 +68,7 @@ const ParaVoceSection = ({ onCtaClick }: ParaVoceSectionProps) => (
         <p className="text-muted-foreground text-sm sm:text-base mb-6">
           Se você se identificou com o lado esquerdo, esta masterclass foi feita para você.
         </p>
-        <CtaButton onClick={onCtaClick} />
+        <CtaButton />
       </div>
     </div>
   </section>
