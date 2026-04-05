@@ -19,11 +19,7 @@ const naoParaVoce = [
   "Você não tem interesse em profissionalizar a gestão e quer crescer a qualquer custo",
 ];
 
-interface ParaVoceSectionProps {
-  onCtaClick?: () => void;
-}
-
-const ParaVoceSection = ({ onCtaClick }: ParaVoceSectionProps) => (
+const ParaVoceSection = () => (
   <section className="relative py-20 sm:py-28 px-6 overflow-hidden" style={{ contain: "layout style paint" }}>
     <div className="absolute inset-0 bg-card/30" />
 
